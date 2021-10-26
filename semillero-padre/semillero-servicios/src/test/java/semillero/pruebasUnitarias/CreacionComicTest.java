@@ -97,17 +97,30 @@ public class CreacionComicTest {
 	 * 
 	 * @return Retorna una lista con los comics inactivos
 	 */
-	private ArrayList<ComicDTO> comicsInactivos() {
+	private boolean comicsInactivos() throws Exception {
 		
 		ArrayList<ComicDTO> comics = crearLista();
+		ArrayList<ComicDTO> comicsValidarActivos = comicsActivos();
 		ArrayList<ComicDTO> comicsInactivos = new ArrayList<ComicDTO>();
+		ArrayList<String> nombreComicsInactivos = new ArrayList<String>();
+		int contarInactivos = 0;
 		for (int i = 0; i <= comics.size() - 1; i++) {
 			if(comics.get(i).getEstadoEnum() == EstadoEnum.INACTIVO) {
 				comicsInactivos.add(comics.get(i));
+				nombreComicsInactivos.add(comics.get(i).getNombre());
+				contarInactivos = contarInactivos + 1;
 			}
         }
 		
-		return comicsInactivos;
+		if (contarInactivos > 0) {
+			int sizetotal = comics.size();
+			int sizeActivos = comicsValidarActivos.size();
+			int sizeInactivos = comicsInactivos.size();
+			throw new Exception("Se ha detectado que de " + sizetotal + " comics se encontraron que " + sizeActivos + " se encuentran activos y " + sizeInactivos + " inactivos. Los comics inactivos son: " + nombreComicsInactivos);
+			
+		}else {
+			return true;
+		}
 		
 	}
 	
@@ -158,18 +171,8 @@ public class CreacionComicTest {
 	@Test
 	public void validarComicsInactivos() {
 		log.info(":::::::::::::::::::::::::::: PRUEBA UNITARIA VALIDAR INACTIVOS :::::::::::::::::::::::::::: ");
-		ArrayList<ComicDTO> comics = crearLista();
-		ArrayList<ComicDTO> comicsValidarInactivos = comicsInactivos();
-		ArrayList<ComicDTO> comicsValidarActivos = comicsActivos();
-		ArrayList<String> nombreComicsInactivos = new ArrayList<String>();
 		try {
-				for (int i = 0; i <= comicsValidarInactivos.size() - 1; i++) {
-					nombreComicsInactivos.add(comicsValidarInactivos.get(i).getNombre());				
-				}
-				int sizetotal = comics.size();
-				int sizeActivos = comicsValidarActivos.size();
-				int sizeInactivos = comicsValidarInactivos.size();
-				throw new Exception("Se ha detectado que de " + sizetotal + " comics se encontraron que " + sizeActivos + " se encuentran activos y " + sizeInactivos + " inactivos. Los comics inactivos son: " + nombreComicsInactivos);
+				comicsInactivos();
 		
 			}catch (Exception e) {
 				System.out.println(e.getMessage());
