@@ -116,6 +116,14 @@ public class Comic implements Serializable {
 	/**
 	 * 
 	 * Constructor de la clase.
+	 */
+	public Comic(){
+		//Constructor vacio
+	}
+	
+	/**
+	 * 
+	 * Constructor de la clase.
 	 * @param id
 	 * @param nombre
 	 * @param editorial

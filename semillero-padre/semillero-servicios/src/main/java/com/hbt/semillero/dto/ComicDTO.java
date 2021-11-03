@@ -7,6 +7,14 @@ import java.time.LocalDate;
 import com.hbt.semillero.enums.EstadoEnum;
 import com.hbt.semillero.enums.TematicaEnum;
 
+/**
+ * 
+ * <b>Descripción:<b> Clase que determina el objeto DTO de un comic
+ * <b>Caso de Uso:Semillero HBT 2021
+ * @author Sebastian Perez Lopez
+ * @version
+ */
+
 public class ComicDTO implements Serializable {
 	
 	
