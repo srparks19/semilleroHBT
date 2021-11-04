@@ -11,7 +11,7 @@ package com.hbt.semillero.enums;
 public enum TematicaEnum {
 	
 	
-	AVENTURA("enum.tematica.aventuras"),
+	AVENTURAS("enum.tematica.aventuras"),
 	BELICO("enum.tematica.belico"),
 	DEPORTIVO("enum.tematica.deportivo"),
 	FANTASTICO("enum.tematica.fantastico"),

@@ -11,14 +11,31 @@ import javax.ws.rs.core.MediaType;
 
 import com.hbt.semillero.dto.ComicDTO;
 import com.hbt.semillero.dto.ConsultaNombrePrecioComicDTO;
+import com.hbt.semillero.dto.ConsultarComicTamanioNombreDTO;
 import com.hbt.semillero.ejb.IGestionarComicLocal;
 
+/**
+ * 
+ * <b>Descripción:<b> Clase que determina los servicios
+ * <b>Caso de Uso:<b> 
+ * @author Sebastian Perez Lopez
+ * @version
+ */
 @Path("/gestionarComic")
 public class GestionarComicRest {
 	
 	@EJB
 	private IGestionarComicLocal gestionarComicLocal;
-
+	
+	/**
+	 * 
+	 * Metodo encargado de realizar el servicio consultarNombrePrecioComic
+	 * <b>Caso de Uso</b>
+	 * @author Sebastian Perez Lopez
+	 * 
+	 * @param idComic
+	 * @return
+	 */
 	@GET
 	@Path("/consultarNombrePrecioComic")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -26,6 +43,33 @@ public class GestionarComicRest {
 		return this.gestionarComicLocal.consultarNombrePrecioComic(idComic);
 	}
 	
+	/**
+	 * 
+	 * Metodo encargado de realizar el servicio consultarComicTamanioNombre
+	 * <b>Caso de Uso</b>
+	 * @author Sebastian Perez Lopez
+	 * 
+	 * @param lengthComic
+	 * @return
+	 * 
+	 * Ejercicio del taller 2
+	 */
+	@GET
+	@Path("/consultarComicTamanioNombre")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ConsultarComicTamanioNombreDTO consultarComicTamanioNombre(@QueryParam("lengthComic") Short lengthComic) {
+		return this.gestionarComicLocal.consultarComicTamanioNombre(lengthComic);
+	}
+	
+	/**
+	 * 
+	 * Metodo encargado del servicio crearComic
+	 * <b>Caso de Uso</b>
+	 * @author Sebastian Perez Lopez
+	 * 
+	 * @param comicDTO
+	 * @return
+	 */
 	@POST
 	@Path("/crearComic")
 	@Produces(MediaType.APPLICATION_JSON)

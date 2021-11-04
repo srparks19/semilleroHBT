@@ -1,5 +1,6 @@
 package com.hbt.semillero.ejb;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -13,8 +14,10 @@ import javax.persistence.Query;
 
 import com.hbt.semillero.dto.ComicDTO;
 import com.hbt.semillero.dto.ConsultaNombrePrecioComicDTO;
+import com.hbt.semillero.dto.ConsultarComicTamanioNombreDTO;
 import com.hbt.semillero.dto.ResultadoDTO;
 import com.hbt.semillero.entidad.Comic;
+import com.hbt.semillero.enums.EstadoEnum;
 
 /**
  * 
@@ -30,7 +33,11 @@ public class GestionarComicBean implements IGestionarComicLocal {
 
 	@PersistenceContext
 	public EntityManager em;
-
+	
+	/**
+	 * 
+	 * @see com.hbt.semillero.ejb.IGestionarComicLocal#consultarNombrePrecioComic(java.lang.Long)
+	 */
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	@Override
 	public ConsultaNombrePrecioComicDTO consultarNombrePrecioComic(Long idComic) {
@@ -50,7 +57,11 @@ public class GestionarComicBean implements IGestionarComicLocal {
 
 		return consultaNombrePrecioDTO;
 	}
-
+	
+	/**
+	 * 
+	 * @see com.hbt.semillero.ejb.IGestionarComicLocal#crearComic(com.hbt.semillero.dto.ComicDTO)
+	 */
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public ComicDTO crearComic(ComicDTO comicDTO) throws Exception {
@@ -84,6 +95,47 @@ public class GestionarComicBean implements IGestionarComicLocal {
 	public List<ComicDTO> consultarComics() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	/**
+	 * 
+	 * @see com.hbt.semillero.ejb.IGestionarComicLocal#consultarComicTamanioNombre(java.lang.Short)
+	 */
+	
+	//Ejercicio del taller 2
+	
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	@Override
+	public ConsultarComicTamanioNombreDTO consultarComicTamanioNombre(Short lengthComic) {
+		String findAllComic = " SELECT cm FROM Comic cm ";
+		Query queryFindAllComic = em.createQuery(findAllComic);
+		ConsultarComicTamanioNombreDTO consultarComicTamanioNombreDTO = new ConsultarComicTamanioNombreDTO();
+		List<Comic> listaComics = queryFindAllComic.getResultList();
+		ArrayList<String> comicsNoSuperanTamanio = new ArrayList<String>();
+		ArrayList<String> comicsSuperanTamanio = new ArrayList<String>();
+		
+		try {
+			for (int i = 0; i <= listaComics.size() - 1; i++) {
+				String nombre = listaComics.get(i).getNombre();
+				
+				if (nombre.length()<=lengthComic) {
+					comicsNoSuperanTamanio.add(nombre);
+				}else {
+					comicsSuperanTamanio.add(nombre);
+				}
+			}
+			consultarComicTamanioNombreDTO.setComicsNoSuperanTamanio(comicsNoSuperanTamanio);
+			consultarComicTamanioNombreDTO.setComicsSuperanTamanio(comicsSuperanTamanio);
+			consultarComicTamanioNombreDTO.setExitoso(true);
+			consultarComicTamanioNombreDTO.setMensajeEjecucion("Comics procesados exitosamente");
+			
+		}catch (Exception e) {
+			
+			consultarComicTamanioNombreDTO.setExitoso(false);
+			consultarComicTamanioNombreDTO.setMensajeEjecucion("Se ha presentado un error tecnico");
+
+		}
+		return consultarComicTamanioNombreDTO;
 	}
 	
 	/**

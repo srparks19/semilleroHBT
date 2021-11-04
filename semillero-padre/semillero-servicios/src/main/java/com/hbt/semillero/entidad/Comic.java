@@ -60,7 +60,7 @@ public class Comic implements Serializable {
 	/**
 	 * Atributo que almacena la tematica de un comic
 	 */
-	@Column(name = "SCETEMATICA")
+	@Column(name = "SCTEMATICA")
 	@Enumerated(value = EnumType.STRING)
 	private TematicaEnum tematicaEnum;
 	
