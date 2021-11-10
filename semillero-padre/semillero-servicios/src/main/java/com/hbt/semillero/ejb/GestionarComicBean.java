@@ -160,6 +160,31 @@ public class GestionarComicBean implements IGestionarComicLocal {
 		return comicsDtos;
 	}
 	
+	
+	
+	@Override
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+	public ComicDTO consultarUnComic(Long idComic) {
+		ComicDTO comicResult = new ComicDTO();
+		Comic comic = new Comic();
+		
+		try {
+			String comicId = "SELECT c FROM Comic c WHERE c.id = :idComic";
+			Query queryComic = em.createQuery(comicId);
+			queryComic.setParameter("idComic", idComic);
+			comic = (Comic) queryComic.getSingleResult();
+			comicResult = convertirComicToComicDTO(comic);
+			comicResult.setExitoso(true);
+			comicResult.setMensajeEjecucion("Se ha realizado la consulta con exito");
+			
+		}catch (Exception e) {
+			comicResult.setExitoso(false);
+			comicResult.setMensajeEjecucion("Se ha producido un error");
+		}
+		
+		return comicResult;
+	}
+	
 	/**
 	 * 
 	 * @see com.hbt.semillero.ejb.IGestionarComicLocal#consultarComicTamanioNombre(java.lang.Short)
@@ -248,4 +273,6 @@ public class GestionarComicBean implements IGestionarComicLocal {
 		comic.setCantidad(comicDTO.getCantidad());
 		return comic;
 	}
+
+	
 }

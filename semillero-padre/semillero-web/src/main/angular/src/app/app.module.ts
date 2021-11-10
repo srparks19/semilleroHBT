@@ -13,6 +13,7 @@ import { MenuComponent } from './semillero/componentes/menu/menu-component';
 import { BienvenidaComponent } from './semillero/componentes/home/bienvenida-component';
 import { GestionarComicComponent } from './semillero/componentes/gestionarComic/gestionar-comic/gestionar-comic.component';
 import { VerActualizarComponent } from './semillero/componentes/ver-actualizar/ver-actualizar.component';
+import { VerComicComponent } from './semillero/componentes/ver-comic/ver-comic.component';
 
 // DTOs
 //export { ComicDTO } from './semillero/dto/comic.dto';
@@ -25,6 +26,7 @@ import { VerActualizarComponent } from './semillero/componentes/ver-actualizar/v
     BienvenidaComponent,
     GestionarComicComponent,
     VerActualizarComponent,
+    VerComicComponent,
   ],
   imports: [
     BrowserModule,

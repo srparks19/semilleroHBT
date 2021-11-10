@@ -95,6 +95,13 @@ public class GestionarComicRest {
 		return this.gestionarComicLocal.consultarComics();
 	}
 	
+	@GET
+	@Path("/consultarUnComic")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ComicDTO consultarUnComic(@QueryParam("idComic") Long idComic) {
+		return this.gestionarComicLocal.consultarUnComic(idComic);
+	}
+	
 	@POST
 	@Path("/eliminarComic")
 	@Produces(MediaType.APPLICATION_JSON)

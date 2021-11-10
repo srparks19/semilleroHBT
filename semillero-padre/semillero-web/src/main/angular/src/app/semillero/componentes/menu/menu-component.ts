@@ -47,4 +47,8 @@ export class MenuComponent implements OnInit {
   public navegarGestionarCompra(): void {
     //WIP
   }
+
+  public navegarVerComic(): void {
+    this.router.navigate(['ver-comic']);
+  }
 }

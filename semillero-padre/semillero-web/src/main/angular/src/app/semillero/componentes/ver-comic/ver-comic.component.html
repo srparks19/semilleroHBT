@@ -1,0 +1,28 @@
+<div class="container">
+    <pre>{{ comicDTO | json }}</pre>
+    <pre>{{ nombre | json }}</pre>
+    <form [formGroup]="gestionarComicForm">
+        <h1>Gestionar Comic</h1>
+        <hr>        
+        
+        <div class="row">
+            <div class="col-6">
+                <label for="nombreComic">Id del comic:</label>
+                <input type="text" class="form-control" id="id" maxlength="50" formControlName="id"
+                    [ngClass]="{ 'is-invalid' :  submitted && f.nombre.errors }">
+                <div *ngIf="submitted && f.nombre.errors">
+                    <span class="text-danger" *ngIf="f.id.errors.required">Campo requerido.</span>
+                    <span class="text-danger" *ngIf="f.id.errors.maxlength">El campo solo recibe 50 caracteres.</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <span></span>
+            </div>
+            <div class="col-6 text-right">
+                <button type="button" class="btn btn-primary" (click)="consultarUnComic()">Consultar</button>
+            </div>
+        </div>
+    </form>
+</div>

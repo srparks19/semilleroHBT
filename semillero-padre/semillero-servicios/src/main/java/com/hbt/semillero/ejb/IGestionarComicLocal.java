@@ -89,5 +89,16 @@ public interface IGestionarComicLocal {
 	 * @return
 	 */
 	public ConsultarComicTamanioNombreDTO consultarComicTamanioNombre(Short lengthComic);
+	
+	/**
+	 * 
+	 * Metodo encargado de consultar un comic
+	 * <b>Caso de Uso</b>
+	 * @author Sebastian Perez Lopez
+	 * 
+	 * @param comicDTO
+	 * @return
+	 */
+	public ComicDTO consultarUnComic(Long idComic);
 
 }
