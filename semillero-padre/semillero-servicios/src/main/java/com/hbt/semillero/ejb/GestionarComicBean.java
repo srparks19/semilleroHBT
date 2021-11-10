@@ -80,21 +80,84 @@ public class GestionarComicBean implements IGestionarComicLocal {
 	}
 
 	@Override
-	public ResultadoDTO actualizarComic(Long idComic) {
-		// TODO Auto-generated method stub
-		return null;
+	public ResultadoDTO actualizarComic(ComicDTO comicDTO) {
+		String consulta = " SELECT cm FROM Comic cm WHERE cm.id = :idComic";
+		ResultadoDTO result = new ResultadoDTO();
+		try {
+			Query consultaNativa = em.createQuery(consulta);
+			consultaNativa.setParameter("idComic", comicDTO.getId());
+			Comic comic = (Comic) consultaNativa.getSingleResult();
+			
+			comic.setNombre(comicDTO.getNombre());
+			comic.setAutores(comicDTO.getAutores());
+			comic.setCantidad(comicDTO.getCantidad());
+			comic.setColeccion(comicDTO.getColeccion());
+			comic.setColor(comicDTO.getColor());
+			comic.setEditorial(comicDTO.getEditorial());
+			comic.setEstadoEnum(comicDTO.getEstadoEnum());
+			comic.setFechaVenta(comicDTO.getFechaVenta());
+			comic.setNumeroPaginas(comicDTO.getNumeroPaginas());
+			comic.setPrecio(comicDTO.getPrecio());
+			comic.setTematicaEnum(comicDTO.getTematicaEnum());
+			em.merge(comic);
+			result.setExitoso(true);
+			String mensaje = "El comic: " + comicDTO.getNombre() + " ha sido correctamente actualizado";
+			result.setMensajeEjecucion(mensaje);
+			
+		}catch (Exception e){
+			result.setExitoso(false);
+			result.setMensajeEjecucion("Se ha presentado un error tecnico al actualizar el comic");
+		} 
+		return result;
 	}
 
+
 	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public ResultadoDTO eliminarComic(Long idComic) {
 		// TODO Auto-generated method stub
-		return null;
+		
+		String eliminarComic = "DELETE FROM Comic c WHERE c.id = :idComic";
+
+		//String eliminarComic = " DELETE FROM Comic WHERE id = :idComic";
+		ResultadoDTO eliminarResultado = new ResultadoDTO();
+		String idComicEliminado = "Se ha eliminado el comic " + idComic;
+		try {
+			Query queryEliminar = em.createQuery(eliminarComic);
+			queryEliminar.setParameter("idComic", idComic);
+			queryEliminar.executeUpdate();
+			eliminarResultado.setExitoso(true);
+			eliminarResultado.setMensajeEjecucion(idComicEliminado);
+			
+		} catch (Exception e) {
+			eliminarResultado.setExitoso(false);
+			eliminarResultado.setMensajeEjecucion("Se ha presentado un error tecnico al consultar el comic");
+		}
+		return eliminarResultado;
 	}
 
 	@Override
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public List<ComicDTO> consultarComics() {
-		// TODO Auto-generated method stub
-		return null;
+		String findAllComic = " SELECT c FROM Comic c ";
+		List<ComicDTO> comicsDtos = new ArrayList<ComicDTO>();
+		ComicDTO comicDTO = new ComicDTO();
+		try {
+			Query queryFindAllComic = em.createQuery(findAllComic);
+			List<Comic> comics = queryFindAllComic.getResultList();
+			
+			for (Comic comic : comics) {
+				comicDTO = this.convertirComicToComicDTO(comic);
+				comicDTO.setExitoso(true);
+				comicDTO.setMensajeEjecucion("Se ha ejecutado exitosamente la consulta");
+				comicsDtos.add(comicDTO);
+			}
+		}catch (Exception e) {
+			comicDTO.setExitoso(false);
+			comicDTO.setMensajeEjecucion("Se ha presentado un error tecnico");
+		}
+		
+		return comicsDtos;
 	}
 	
 	/**

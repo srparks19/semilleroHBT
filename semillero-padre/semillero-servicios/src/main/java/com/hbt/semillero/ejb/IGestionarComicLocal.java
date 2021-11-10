@@ -54,7 +54,7 @@ public interface IGestionarComicLocal {
 	 * @return
 	 */
 	
-	public ResultadoDTO actualizarComic(Long idComic);
+	public ResultadoDTO actualizarComic(ComicDTO comicDTO);
 	
 	/**
 	 * 

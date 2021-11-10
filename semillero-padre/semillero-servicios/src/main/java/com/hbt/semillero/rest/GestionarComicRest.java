@@ -1,5 +1,7 @@
 package com.hbt.semillero.rest;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -12,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import com.hbt.semillero.dto.ComicDTO;
 import com.hbt.semillero.dto.ConsultaNombrePrecioComicDTO;
 import com.hbt.semillero.dto.ConsultarComicTamanioNombreDTO;
+import com.hbt.semillero.dto.ResultadoDTO;
 import com.hbt.semillero.ejb.IGestionarComicLocal;
 
 /**
@@ -83,6 +86,29 @@ public class GestionarComicRest {
 			comicDTOResult.setMensajeEjecucion("Se ha presentado un error tecnico, causa: " + e.getMessage());
 		}
 		return comicDTOResult;
+	} 
+	
+	@GET
+	@Path("/consultarComics")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<ComicDTO> consultarComics() {
+		return this.gestionarComicLocal.consultarComics();
+	}
+	
+	@POST
+	@Path("/eliminarComic")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ResultadoDTO eliminarComic(Long idComic) {
+		return this.gestionarComicLocal.eliminarComic(idComic);
+	} 
+	
+	@POST
+	@Path("/actualizarComic")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ResultadoDTO actualizarComic(ComicDTO comicDTO) {
+		return this.gestionarComicLocal.actualizarComic(comicDTO);
 	} 
 	
 }
