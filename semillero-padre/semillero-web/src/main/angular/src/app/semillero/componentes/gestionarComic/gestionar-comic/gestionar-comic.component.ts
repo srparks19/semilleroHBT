@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ComicDTO } from 'src/app/semillero/dto/comic-dto';
 import { GestionarComicService } from 'src/app/semillero/servicios/gestionar-comic.service';
 
@@ -32,13 +32,15 @@ export class GestionarComicComponent implements OnInit {
 
   public mostrarItem2 : boolean;
 
+  public mostrarItem3 : boolean;
+
   public submitted : boolean;
 
   public mensajeEjecucion : string;
 
   public index : number;
 
-  constructor(private fb : FormBuilder, private router : Router, private gestionComicsService : GestionarComicService) { 
+  constructor(private fb : FormBuilder, private router : Router, private gestionComicsService : GestionarComicService, private activatedRoute: ActivatedRoute) { 
     this.gestionarComicForm = this.fb.group({
       nombre : [null, Validators.required],
       editorial : [null, Validators.required],
@@ -57,6 +59,8 @@ export class GestionarComicComponent implements OnInit {
     this.mostrarItem = false;
     this.comicDTO = new ComicDTO();
     this.listaComics = new Array<ComicDTO>();
+    let mostrar : any = this.activatedRoute.snapshot.params;
+    this.mostrarItem3 = mostrar;
     this.consultarComics();
   }
 
@@ -179,6 +183,10 @@ export class GestionarComicComponent implements OnInit {
 
   public cerrar() : void {
     this.mostrarItem = false;
+  }
+
+  public cerrarCompra() : void {
+    this.mostrarItem3 = false;
   }
 
   public cancelar() : void {

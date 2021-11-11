@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ComicDTO } from '../dto/comic-dto';
+import { CompraDTO } from '../dto/compra-dto';
 import { AbstractService } from './template.service';
 
 @Injectable({
@@ -34,5 +35,9 @@ export class GestionarComicService extends AbstractService {
     let params = new HttpParams().set('idComic', idComic.toString());
 
     return this.httpClient.get('http://localhost:8085/semillero-servicios/rest/gestionarComic/consultarUnComic', {params : params});
+  }
+
+  public comprarComic(compraDTO : CompraDTO): Observable<any> {
+    return this.httpClient.post('http://localhost:8085/semillero-servicios/rest/gestionarCompra/comprarComic',compraDTO);
   }
 }

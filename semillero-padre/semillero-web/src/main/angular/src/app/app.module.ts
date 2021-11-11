@@ -14,6 +14,7 @@ import { BienvenidaComponent } from './semillero/componentes/home/bienvenida-com
 import { GestionarComicComponent } from './semillero/componentes/gestionarComic/gestionar-comic/gestionar-comic.component';
 import { VerActualizarComponent } from './semillero/componentes/ver-actualizar/ver-actualizar.component';
 import { VerComicComponent } from './semillero/componentes/ver-comic/ver-comic.component';
+import { GestionarCompraComicComponent } from './semillero/componentes/gestionar-compra-comic/gestionar-compra-comic.component';
 
 // DTOs
 //export { ComicDTO } from './semillero/dto/comic.dto';
@@ -27,6 +28,7 @@ import { VerComicComponent } from './semillero/componentes/ver-comic/ver-comic.c
     GestionarComicComponent,
     VerActualizarComponent,
     VerComicComponent,
+    GestionarCompraComicComponent,
   ],
   imports: [
     BrowserModule,
